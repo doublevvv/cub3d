@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 07:49:22 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/05 13:25:25 by vlaggoun         ###   ########.fr       */
+/*   Created: 2023/11/08 09:38:36 by vlaggoun          #+#    #+#             */
+/*   Updated: 2025/02/05 10:06:52 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include"libft.h"
 
-int	main(int ac, char **av)
+size_t	ft_strlcpy(char *dest, const char *src, size_t n)
 {
-	t_game game;
+	size_t	i;
+	size_t	taillesrc;
 
-	if (ac != 2)
+	taillesrc = ft_strlen(src);
+	i = 0;
+	if (n == 0)
+		return (taillesrc);
+	while (src[i] && i < n - 1)
 	{
-		printf("Error : You don't have the correct number of files\n");
-		return (0);
+		dest[i] = src[i];
+		i++;
 	}
-	is_cub(av[1], ".cub");
-	init_map(&game);
-	read_map(av, &game);
-	verify_textures(&game);
-	verify_colors(&game);
+	dest[i] = '\0';
+	return (taillesrc);
 }

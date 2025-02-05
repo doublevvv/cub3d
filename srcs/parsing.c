@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 08:02:27 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/04 14:44:23 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:24:51 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,22 +136,15 @@ char	*recover_path(char *str)
 	while (is_space(str[i]) == true && str[i] != '\0')
 		i++;
 	res = ft_substr(str, i, ft_strlen(str) - i);
-	// while (str[i] != '\0')
-	// {
-	// 	res = ft_strdup(str);
-	// 	i++;
-	// }
-	// printf("RES : %s\n", res);
-	// printf("Output string: %s\n", str);
 	return (res);
 
 }
+
 
 char	*verify_identifiers(char **s1, char *s2, int map)
 {
 	int	i;
 	char *res;
-
 	res = NULL;
 	i = 0;
 	while (s1[i])
@@ -159,30 +152,125 @@ char	*verify_identifiers(char **s1, char *s2, int map)
 		if (compare_identifiers(s1[i], s2, map) == false)//donc ca s'est bien passe
 		{
 			res = recover_path(s1[i]);
-			printf("RES : %s\n", res);
+			// printf("RES : %s\n", res);
 			return (res);
 		}
 		i++;
 	}
-	return (NULL);// return NULL
+	return (NULL);
 }
 
 int	verify_textures(t_game *game)
 {
-	t_texture	*pattern;
-
-	pattern = NULL;
 	if (verify_identifiers(game->map.map_copy, "NO", 0) != NULL)
 	{
-		printf("HELLO\n");
-		//game->texture.north
+		game->texture.north = verify_identifiers(game->map.map_copy, "NO", 0);
+		printf("TEXT : %s", game->texture.north);
+		if (!open(game->texture.north, O_RDONLY))
+			printf("FALSE\n");
 	}
-	// if (verify_identifiers(game->map.map_copy, "SO", 0) != NULL)
-	// {
-	// 	printf("HELLO\n");
-	// 	//game->texture.north
-	// }
-	// for every textures
-	//if retour NULL des paths, afficher message d'erreur
+	if (verify_identifiers(game->map.map_copy, "NO", 0) != NULL)
+	{
+		game->texture.south = verify_identifiers(game->map.map_copy, "SO", 0);
+		printf("TEXT : %s", game->texture.south);
+	}
+	if (verify_identifiers(game->map.map_copy, "NO", 0) != NULL)
+	{
+		game->texture.west = verify_identifiers(game->map.map_copy, "WE", 0);
+		printf("TEXT : %s", game->texture.west);
+	}
+	if (verify_identifiers(game->map.map_copy, "NO", 0) != NULL)
+	{
+		game->texture.east = verify_identifiers(game->map.map_copy, "EA", 0);
+		printf("TEXT : %s", game->texture.east);
+	}
+	else
+		return(error_msg("invalid path to texture\n"));
 	return (0);
+}
+
+// int	verify_colors(char *str)
+// {
+// 	int i;
+
+// 	i = 0;
+
+// 	return (1);
+// }
+
+int	check_comma(char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i] && j < 3)
+	{
+		if (str[i] == ',')
+		{
+			j++;
+		}
+		i++;
+	}
+	printf("NOB : %d\n", j);
+	return (0);
+}
+
+char *recover_colors(char *str)
+{
+	int	i;
+	char *color;
+
+	i = 0;
+	while (is_space(str[i]) == true)
+		i++;
+	while (is_space(str[i]) != true && str[i] != '\0')
+		i++;
+	while (is_space(str[i]) == true && str[i] != '\0')
+		i++;
+	color = ft_substr(str, i, ft_strlen(str) - i);
+	return (color);
+}
+
+char	*verify_rgb(char **s1, char *s2, int map)
+{
+	int	i;
+	char *color;
+	color = NULL;
+	i = 0;
+	while (s1[i])
+	{
+		if (compare_identifiers(s1[i], s2, map) == false)//donc ca s'est bien passe
+		{
+			if (check_comma(s1[i]) != false)
+				return (NULL);
+			color = recover_colors(s1[i]);
+			printf("COLOR : %s", color);
+			return (color);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+int	verify_colors(t_game *game)
+{
+	if (verify_rgb(game->map.map_copy, "F", 0) != NULL)
+	{
+		printf("OK\n");
+	}
+	if (verify_rgb(game->map.map_copy, "C", 0) != NULL)
+	{
+		printf("OKK\n");
+	}
+	else
+		return(error_msg("invalid colors\n"));
+	return (0);
+}
+
+int	error_msg(char *str)
+{
+	write(2, str, ft_strlen(str));
+	return (1);
 }

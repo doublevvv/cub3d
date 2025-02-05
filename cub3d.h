@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:20:14 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/01/30 17:03:22 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:49:38 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # include <math.h>
 # include <stdbool.h>
 
+
+// union u_colors
+// {
+// 	unsigned char *rgb[3];
+// 	unsigned int	color;
+// }	u_colors;
 
 typedef struct s_list
 {
@@ -59,6 +65,11 @@ typedef struct s_texture
 {
 	void	*floor;
 	void	*wall;
+	union
+	{
+		unsigned char *rgb[3];
+		unsigned int	color;
+	};
 	void	*door;
 	char	*north;
 	char	*south;
@@ -84,6 +95,7 @@ void	init_map(t_game *game);
 void	read_map(char **argv, t_game *game);
 void	read_map_2(t_game *game, t_list *node, t_list *new);
 int		verify_textures(t_game *game);
+int		verify_colors(t_game *game);
 // void	check_x_walls(t_game *game);
 // void	check_y_walls(t_game *game);
 
@@ -112,6 +124,12 @@ void	free_array(t_game *game);
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
+
+// ***********************************
+// *             OTHERS              *
+// ***********************************
+
+int	error_msg(char *str);
 
 
 # endif
