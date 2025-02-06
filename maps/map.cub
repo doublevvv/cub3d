@@ -4,7 +4,7 @@ WE ./textures/path_to_the_west_texture
 
 
 NO ./textures/path_to_the_north_texture
-ghdxkudhgjkhxk //a gerer ? 
+ghdxkudhgjkhxk //a gerer ?
 SO ./textures/path_to_the_south_texture
 EA ./textures/path_to_the_east_texture
 
@@ -13,7 +13,7 @@ EA ./textures/path_to_the_east_texture
 
 
 
-F                 220,100,,,0 //caractere par caractere, verifier trois tableaux et overflow 0-255
+F 220,100,0
 C 225,30,0
 
         1111111111111111111111111

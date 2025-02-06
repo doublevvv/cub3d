@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 08:02:27 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/05 15:24:51 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:43:46 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ char	*recover_path(char *str)
 		i++;
 	res = ft_substr(str, i, ft_strlen(str) - i);
 	return (res);
-
 }
 
 
@@ -189,31 +188,26 @@ int	verify_textures(t_game *game)
 	return (0);
 }
 
-// int	verify_colors(char *str)
-// {
-// 	int i;
 
-// 	i = 0;
-
-// 	return (1);
-// }
-
-int	check_comma(char *str)
+int	check_comma(unsigned char *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (str[i] && j < 3)
+	while (is_space(str[i]) == true)
+		i++;
+	while (is_space(str[i]) != true && str[i] != '\0')
+		i++;
+	while (is_space(str[i]) == true && str[i] != '\0')
+		i++;
+	//ICI premier nombre
+	printf("INT AVANT : %d\n", i);
+	if (str[i] > '0' && str[i] < '255')
 	{
-		if (str[i] == ',')
-		{
-			j++;
-		}
+		printf("%s", str);
 		i++;
 	}
-	printf("NOB : %d\n", j);
+	printf("INT APRES : %d\n", i);
 	return (0);
 }
 
@@ -243,10 +237,11 @@ char	*verify_rgb(char **s1, char *s2, int map)
 	{
 		if (compare_identifiers(s1[i], s2, map) == false)//donc ca s'est bien passe
 		{
-			if (check_comma(s1[i]) != false)
+			// printf("%s", s1[i]);
+			if (check_comma((unsigned char *)s1[i]) != false)
 				return (NULL);
 			color = recover_colors(s1[i]);
-			printf("COLOR : %s", color);
+			// printf("COLOR : %s", color);
 			return (color);
 		}
 		i++;
