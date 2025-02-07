@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:20:14 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/05 14:49:38 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:22:47 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@
 # include <stdbool.h>
 
 
-// union u_colors
-// {
-// 	unsigned char *rgb[3];
-// 	unsigned int	color;
-// }	u_colors;
+typedef union u_colors
+{
+	unsigned char rgb[3];
+	unsigned int	color;
+}	u_colors;
 
 typedef struct s_list
 {
@@ -63,13 +63,8 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-	void	*floor;
-	void	*wall;
-	union
-	{
-		unsigned char *rgb[3];
-		unsigned int	color;
-	};
+	char	**floor;
+	char 	**ceiling;
 	void	*door;
 	char	*north;
 	char	*south;
@@ -81,6 +76,8 @@ typedef struct	t_list
 {
 	t_map	map;
 	t_texture	texture;
+	u_colors	color_fl;
+	u_colors	color_ce;
 	// void	*winmlx;
 	// void	*ptrmlx;
 }		t_game;
@@ -96,6 +93,9 @@ void	read_map(char **argv, t_game *game);
 void	read_map_2(t_game *game, t_list *node, t_list *new);
 int		verify_textures(t_game *game);
 int		verify_colors(t_game *game);
+int		overflow(unsigned char **tab);
+void	colors_in_structure(t_game *game, unsigned char **floor, unsigned char **ceiling);
+
 // void	check_x_walls(t_game *game);
 // void	check_y_walls(t_game *game);
 

@@ -14,10 +14,10 @@ EA ./textures/path_to_the_east_texture
 
 
 F 220,100,0
-C 225,30,0
+C 225,30,100
 
         1111111111111111111111111
-        1000000000110000000000001    111111
+        1000000000110000000000001    111101
         1011000001110000000000001    100001
         1001000000000000000000001    111111
 111111111011000001110000000000001
@@ -32,3 +32,10 @@ C 225,30,0
 11111111 1111111 111111111111
 
 abc // a gerer ?
+
+ */ Tu parcours ta map de char en char, et quand c'est un 0 ou une pos de joueur, tu check autour voir ce que c'est.
+Si c'est un espace -> KO.
+Si c'est autre chose -> Tu continues.
+
+avoir la taille de la plus grande ligne (memset(espace) + 1)
+*/
