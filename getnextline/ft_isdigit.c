@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 07:49:22 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/10 15:32:19 by vlaggoun         ###   ########.fr       */
+/*   Created: 2023/11/08 11:06:33 by vlaggoun          #+#    #+#             */
+/*   Updated: 2025/02/10 07:54:34 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include<unistd.h>
+#include "libft.h"
 
-int	main(int ac, char **av)
+int	ft_isdigit(int c)
 {
-	t_game game;
-
-	if (ac != 2)
-	{
-		printf("Error : You don't have the correct number of files\n");
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
 		return (0);
-	}
-	is_cub(av[1], ".cub");
-	init_map(&game);
-	read_map(av, &game);
-	verify_textures(&game);
-	verify_colors(&game);
-	verify_map(&game);
-	// parsing_map(&game);
 }
+/*
+int	main()
+{
+	char c, result;
+
+	c = '5';
+	result = ft_isdigit(c);
+	printf("%d", result);
+	return (0);
+}
+*/

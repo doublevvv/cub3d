@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:20:14 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/07 17:22:47 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:34:06 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int		verify_textures(t_game *game);
 int		verify_colors(t_game *game);
 int		overflow(unsigned char **tab);
 void	colors_in_structure(t_game *game, unsigned char **floor, unsigned char **ceiling);
-
+// void	parsing_map(t_game *game);
+int		verify_map(t_game *game);
 // void	check_x_walls(t_game *game);
 // void	check_y_walls(t_game *game);
 
