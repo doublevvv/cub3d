@@ -1,12 +1,7 @@
-WE ./textures/path_to_the_west_texture
-
-
-
-
-NO ./textures/path_to_the_north_texture
-ghdxkudhgjkhxk //a gerer ?
-SO ./textures/path_to_the_south_texture
-EA ./textures/path_to_the_east_texture
+NO ./textures/path_to_the_north_texture.xpm
+WE ./textures/path_to_the_west_texture.xpm
+SO ./textures/path_to_the_south_texture.xpm
+EA ./textures/path_to_the_east_texture.xpm
 
 
 
@@ -15,6 +10,10 @@ EA ./textures/path_to_the_east_texture
 
 F 121,100,0
 C 115,150,100
+
+
+
+//checker qu'il y a rien entre couleurs et map
 
         1111111111111111111111111
         1000000000110000000000001    111101

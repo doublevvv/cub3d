@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 08:02:27 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/10 17:08:22 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:42:44 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,12 @@ int	compare_identifiers(char *s1, char *s2, int map)
 	i = 0;
 	if (!s1 && !s2)
 		return (1);
+	if (ft_strlen(s1) == 1 && s1[0] == '\n')
+		return (1);
 	while (is_space(s1[i]) == true)
 		s1++;
 	if (ft_strncmp(s1 + i, s2, ft_strlen(s2)) != 0)
-	{
-		printf("error hre\n");
 		return (1);
-	}
 	if (map == 0)
 	{
 		i += ft_strlen(s2);
@@ -168,26 +167,26 @@ int	verify_textures(t_game *game)
 	if (verify_identifiers(game->map.map_copy, "NO", 0) != NULL)
 	{
 		game->texture.north = verify_identifiers(game->map.map_copy, "NO", 0);
-		// printf("TEXT : %s", game->texture.north);
+		printf("TEXT : %s", game->texture.north);
 		if (!open(game->texture.north, O_RDONLY))
 			printf("FALSE\n");
 	}
 	if (verify_identifiers(game->map.map_copy, "WE", 0) != NULL)
 	{
 		game->texture.south = verify_identifiers(game->map.map_copy, "SO", 0);
-		// printf("TEXT : %s", game->texture.south);
+		printf("TEXT : %s", game->texture.south);
 	}
 	if (verify_identifiers(game->map.map_copy, "EA", 0) != NULL)
 	{
 		game->texture.west = verify_identifiers(game->map.map_copy, "WE", 0);
-		// printf("TEXT : %s", game->texture.west);
+		printf("TEXT : %s", game->texture.west);
 	}
 	if (verify_identifiers(game->map.map_copy, "SO", 0) != NULL)
 	{
 		game->texture.east = verify_identifiers(game->map.map_copy, "EA", 0);
-		// printf("TEXT : %s", game->texture.east);
+		printf("TEXT : %s", game->texture.east);
 	}
-	else
+	if (game->texture.west == NULL || game->texture.north == NULL || game->texture.east == NULL || game->texture.south == NULL)
 		return(error_msg("invalid path to texture\n"));
 	return (0);
 }
@@ -260,6 +259,7 @@ char	**verify_rgb(char **s1, char *s2, int map)
 	i = 0;
 	while (s1[i])
 	{
+		// printf("INT COLO: %d\n", i);
 		if (compare_identifiers(s1[i], s2, map) == false)//donc ca s'est bien passe
 		{
 			if (check_comma(s1[i]) != false)
@@ -330,7 +330,7 @@ int	overflow(unsigned char **tab)
 // void	parsing_map(t_game *game)
 // {
 // 	if ()
-// }
+// }ll
 
 char *recover_map(char *str)
 {
@@ -348,16 +348,20 @@ char *recover_map(char *str)
 }
 
 
-char	*verify_map_copy(char **s1, char *s2, int map)
+char	*verify_map_copy(char **s1, char *s2, int map)//ajouter structure
 {
 	int	i;
 	char *map_copy;
+	map_copy = NULL;
 	i = 0;
 	while (s1[i])
 	{
+		// printf("INT MAP : %d\n", i);
+		printf("%s", s1[i]);
 		if (compare_identifiers(s1[i], s2, map) == false)//donc ca s'est bien passe
 		{
 			map_copy = recover_map(s1[i]);
+			//fonction pour recuperer integralite map dans strcture
 			printf("CARTE : %s", map_copy);
 			return (map_copy);
 		}
@@ -368,17 +372,12 @@ char	*verify_map_copy(char **s1, char *s2, int map)
 
 int	verify_map(t_game *game)
 {
-	if (verify_map_copy(game->map.map_copy, "1", 0) != NULL)
+	if (verify_map_copy(game->map.map_copy, "1", 1) != NULL)
 	{
 		printf("OK\n");
 	}
 	return (0);
 }
 
-int	error_msg(char *str)
-{
-	write(2, str, ft_strlen(str));
-	return (1);
-}
 
 //parser la carte (demander a alexis)

@@ -6,7 +6,7 @@
 #    By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 10:25:40 by vlaggoun          #+#    #+#              #
-#    Updated: 2025/02/10 08:07:28 by vlaggoun         ###   ########.fr        #
+#    Updated: 2025/02/11 16:34:40 by vlaggoun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = cub3d
 
 HEADER = cub3d.h
 
-SOURCES = main.c getnextline/get_next_line.c getnextline/get_next_line_utils.c recover_data.c srcs/initialization.c srcs/parsing.c srcs/utils.c \
-free.c getnextline/ft_strncmp.c getnextline/ft_substr.c getnextline/ft_strlcpy.c getnextline/ft_split.c getnextline/ft_isdigit.c getnextline/ft_atoi.c
+SOURCES = main.c getnextline/get_next_line.c getnextline/get_next_line_utils.c recover_data.c srcs/initialization.c srcs/utils.c \
+free.c getnextline/ft_strncmp.c getnextline/ft_substr.c getnextline/ft_strlcpy.c getnextline/ft_split.c getnextline/ft_isdigit.c getnextline/ft_atoi.c srcs/parsing.c
 
 SRCS = $(addprefix $(OBJ_DIR)/, $(SOURCES))
 

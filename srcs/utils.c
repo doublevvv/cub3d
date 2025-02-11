@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 08:10:33 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/01/29 13:40:16 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:13:18 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,10 @@ t_list	*ft_lstlast(t_list *lst)
 	while (lst->next)
 		lst = lst->next;
 	return (lst);
+}
+
+int	error_msg(char *str)
+{
+	write(2, str, ft_strlen(str));
+	return (1);
 }

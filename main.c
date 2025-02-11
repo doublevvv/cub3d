@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 07:49:22 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/10 15:32:19 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:34:57 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,4 @@ int	main(int ac, char **av)
 	verify_textures(&game);
 	verify_colors(&game);
 	verify_map(&game);
-	// parsing_map(&game);
 }
