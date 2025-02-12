@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 08:02:27 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/11 16:42:44 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:52:51 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,31 +164,17 @@ char	*verify_identifiers(char **s1, char *s2, int map)
 
 int	verify_textures(t_game *game)
 {
-	if (verify_identifiers(game->map.map_copy, "NO", 0) != NULL)
-	{
-		game->texture.north = verify_identifiers(game->map.map_copy, "NO", 0);
-		printf("TEXT : %s", game->texture.north);
-		if (!open(game->texture.north, O_RDONLY))
-			printf("FALSE\n");
-	}
-	if (verify_identifiers(game->map.map_copy, "WE", 0) != NULL)
-	{
-		game->texture.south = verify_identifiers(game->map.map_copy, "SO", 0);
-		printf("TEXT : %s", game->texture.south);
-	}
-	if (verify_identifiers(game->map.map_copy, "EA", 0) != NULL)
-	{
-		game->texture.west = verify_identifiers(game->map.map_copy, "WE", 0);
-		printf("TEXT : %s", game->texture.west);
-	}
-	if (verify_identifiers(game->map.map_copy, "SO", 0) != NULL)
-	{
-		game->texture.east = verify_identifiers(game->map.map_copy, "EA", 0);
-		printf("TEXT : %s", game->texture.east);
-	}
+	game->texture.north = verify_identifiers(game->map.map_copy, "NO", 0);
+	game->texture.west = verify_identifiers(game->map.map_copy, "WE", 0);
+	game->texture.east = verify_identifiers(game->map.map_copy, "EA", 0);
+	game->texture.south = verify_identifiers(game->map.map_copy, "SO", 0);
 	if (game->texture.west == NULL || game->texture.north == NULL || game->texture.east == NULL || game->texture.south == NULL)
-		return(error_msg("invalid path to texture\n"));
-	return (0);
+	{
+		printf("wrong textures\n");
+		return (0);
+	}
+	return (1);
+	// ne pas oublier de verifier ouverture fichier textures
 }
 
 
@@ -259,7 +245,6 @@ char	**verify_rgb(char **s1, char *s2, int map)
 	i = 0;
 	while (s1[i])
 	{
-		// printf("INT COLO: %d\n", i);
 		if (compare_identifiers(s1[i], s2, map) == false)//donc ca s'est bien passe
 		{
 			if (check_comma(s1[i]) != false)
@@ -277,19 +262,11 @@ char	**verify_rgb(char **s1, char *s2, int map)
 
 int	verify_colors(t_game *game)
 {
-	if (verify_rgb(game->map.map_copy, "F", 0) != NULL)
-	{
-		game->texture.floor = verify_rgb(game->map.map_copy, "F", 0); //❗pas de message d'erreur pour FLOOR
-		int i = 0;
-		printf("%s\n", game->texture.floor[i]);
+	if ((game->texture.floor = verify_rgb(game->map.map_copy, "F", 0)) != NULL) //❗pas de message d'erreur pour FLOOR
 		overflow((unsigned char **)game->texture.floor);
-	}
-	if (verify_rgb(game->map.map_copy, "C", 0) != NULL)
-	{
-		game->texture.ceiling = verify_rgb(game->map.map_copy, "C", 0);
+	if ((game->texture.ceiling = verify_rgb(game->map.map_copy, "C", 0)) != NULL)
 		overflow((unsigned char **)game->texture.ceiling);
-	}
-	else
+	if (game->texture.floor == NULL || game->texture.ceiling == NULL)
 		return(error_msg("invalid colors\n"));
 	//rearranger la fonction car si erreur, va qund meme aller dans colorsinstruct
 	// colors_in_structure(game, (unsigned char **)game->texture.floor, (unsigned char **)game->texture.ceiling);
@@ -327,10 +304,6 @@ int	overflow(unsigned char **tab)
 // }
 //recuperer texture.floor/ceiling et atoi dessus pour les stocker dans la strcture union
 
-// void	parsing_map(t_game *game)
-// {
-// 	if ()
-// }ll
 
 char *recover_map(char *str)
 {
@@ -338,32 +311,52 @@ char *recover_map(char *str)
 	char *map;
 
 	i = 0;
-	printf("hello\n");
 	if (is_space(str[i]) == true)
 		i++;
+	if (is_space(str[i] != true))
+		i++;
 	map = ft_substr(str, i, ft_strlen(str) - i);
-		// i++;
-	// }
 	return (map);
 }
 
+char	**copy_map(char **str, t_game *game)
+{
+	int i;
+	// char **copy;
 
-char	*verify_map_copy(char **s1, char *s2, int map)//ajouter structure
+	i = 0;
+	while (str[i])
+		i++;
+	game->map.parse_map = malloc(sizeof(char *) * i + 1);
+	// if (!copy)
+	// 	return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		game->map.parse_map[i] = ft_strdup(str[i]);
+		i++;
+	}
+	// printf("test :%s", copy[i]);
+	return (NULL);
+}
+
+
+char	**verify_map_copy(char **s1, char *s2, int map, t_game *game)//ajouter structure
 {
 	int	i;
 	char *map_copy;
+	// char **copy;
 	map_copy = NULL;
 	i = 0;
 	while (s1[i])
 	{
-		// printf("INT MAP : %d\n", i);
-		printf("%s", s1[i]);
 		if (compare_identifiers(s1[i], s2, map) == false)//donc ca s'est bien passe
 		{
 			map_copy = recover_map(s1[i]);
-			//fonction pour recuperer integralite map dans strcture
 			printf("CARTE : %s", map_copy);
-			return (map_copy);
+			//fonction pour recuperer integralite map dans strcture
+			copy_map(s1 + i,  game);
+			return (NULL);
 		}
 		i++;
 	}
@@ -372,9 +365,11 @@ char	*verify_map_copy(char **s1, char *s2, int map)//ajouter structure
 
 int	verify_map(t_game *game)
 {
-	if (verify_map_copy(game->map.map_copy, "1", 1) != NULL)
+	if (verify_map_copy(game->map.map_copy, "1", 1, game) == NULL)
 	{
 		printf("OK\n");
+		for(int i = 0; game->map.parse_map[i]; i++)
+			printf("%s", game->map.parse_map[i]);
 	}
 	return (0);
 }

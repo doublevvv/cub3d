@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 09:40:24 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/11 16:31:20 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/12 09:04:55 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char	*verify_identifiers(char *s1, char *s2, int map)
 int	verify_textures(t_game *game, char *map_copy)
 {
 	game->texture.north = verify_identifiers(map_copy, "NO", 0);
-	printf("%s\n", )
 	game->texture.west = verify_identifiers(map_copy, "WE", 0);
 	game->texture.east = verify_identifiers(map_copy, "EA", 0);
 	game->texture.south = verify_identifiers(map_copy, "SO", 0);

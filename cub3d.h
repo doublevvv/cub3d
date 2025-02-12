@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:20:14 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/11 16:35:26 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/12 09:04:11 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_map
 	unsigned int	width;
 	unsigned int	height;
 	char 			**map_copy;
+	char			**parse_map;
 
 }		t_map;
 
