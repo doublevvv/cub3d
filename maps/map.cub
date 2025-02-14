@@ -13,6 +13,16 @@ C 115,150,100
 
 
 
+abc // a gerer ?
+
+ */ Tu parcours ta map de char en char, et quand c'est un 0 ou une pos de joueur, tu check autour voir ce que c'est.
+Si c'est un espace -> KO.
+Si c'est autre chose -> Tu continues.
+
+avoir la taille de la plus grande ligne (memset(espace) + 1)
+
+-verifier qu'il y a bien qu'ub seul joueur
+*/
 //checker qu'il y a rien entre couleurs et map
 
         1111111111111111111111111
@@ -29,12 +39,3 @@ C 115,150,100
 11000001110101011111011110N0111
 11110111 1110101 101111010001
 11111111 1111111 111111111111
-
-abc // a gerer ?
-
- */ Tu parcours ta map de char en char, et quand c'est un 0 ou une pos de joueur, tu check autour voir ce que c'est.
-Si c'est un espace -> KO.
-Si c'est autre chose -> Tu continues.
-
-avoir la taille de la plus grande ligne (memset(espace) + 1)
-*/

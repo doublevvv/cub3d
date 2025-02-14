@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 08:05:11 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/01/29 14:10:36 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/14 09:44:16 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	read_map_2(t_game *game, t_list *node, t_list *new)
 	close(game->map.fd);
 	if (node == NULL)
 		exit(1);
-	get_size_map(node, game); //recuperer taille ?
+	linkedlist_map(node, game);
 	free(str);
 }
 

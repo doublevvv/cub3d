@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 08:02:27 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/12 15:52:51 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:22:27 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,73 +304,78 @@ int	overflow(unsigned char **tab)
 // }
 //recuperer texture.floor/ceiling et atoi dessus pour les stocker dans la strcture union
 
-
-char *recover_map(char *str)
-{
-	int	i;
-	char *map;
-
-	i = 0;
-	if (is_space(str[i]) == true)
-		i++;
-	if (is_space(str[i] != true))
-		i++;
-	map = ft_substr(str, i, ft_strlen(str) - i);
-	return (map);
-}
-
-char	**copy_map(char **str, t_game *game)
+int	check_map(char *str)
 {
 	int i;
-	// char **copy;
+
+	i = 0;
+	printf("%s\n", str);
+	while (str[i])
+	{
+		if (str[i] != '1' && str[i] != '0' && str[i] != 'N' && str[i] != 'W' && str[i] != 'E'
+			&& str[i] != 'S' && str[i] != ' ' && str[i] != '\n')
+			{
+				printf("invalid map : [%c]\n",str[i]);
+				return (1);
+			}
+		i++;
+	}
+	return (0);
+}
+
+
+int	copy_map(char **str, t_game *game)
+{
+	int i;
 
 	i = 0;
 	while (str[i])
 		i++;
 	game->map.parse_map = malloc(sizeof(char *) * i + 1);
-	// if (!copy)
-	// 	return (NULL);
 	i = 0;
 	while (str[i])
 	{
+		if (check_map(str[i]) == 1)
+			return (1);
 		game->map.parse_map[i] = ft_strdup(str[i]);
 		i++;
 	}
-	// printf("test :%s", copy[i]);
-	return (NULL);
+	return (0);
+}
+int	get_size_map(t_game *game)
+{
+	game->map.width = map_len(game->map.parse_map[0]);
+	return (0);
 }
 
-
-char	**verify_map_copy(char **s1, char *s2, int map, t_game *game)//ajouter structure
+int	verify_map_copy(char **s1, char *s2, int map, t_game *game)//ajouter structure
 {
 	int	i;
-	char *map_copy;
-	// char **copy;
-	map_copy = NULL;
 	i = 0;
 	while (s1[i])
 	{
-		if (compare_identifiers(s1[i], s2, map) == false)//donc ca s'est bien passe
+		if (compare_identifiers(s1[i], s2, map) == false)
 		{
-			map_copy = recover_map(s1[i]);
-			printf("CARTE : %s", map_copy);
-			//fonction pour recuperer integralite map dans strcture
-			copy_map(s1 + i,  game);
-			return (NULL);
+			if (copy_map(s1 + i,  game) == 1)
+				return (0);
+			//verifier si murs font le tour
+			return (1);
 		}
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
 int	verify_map(t_game *game)
 {
-	if (verify_map_copy(game->map.map_copy, "1", 1, game) == NULL)
+	if (verify_map_copy(game->map.map_copy, "1", 1, game) != 0)
 	{
 		printf("OK\n");
 		for(int i = 0; game->map.parse_map[i]; i++)
 			printf("%s", game->map.parse_map[i]);
+		get_size_map(game); //prendre la taille de la ligne la plus longue et remplacer vie par espace
 	}
+	printf("width : %d | height : %d\n", game->map.width, game->map.height);
 	return (0);
 }
 

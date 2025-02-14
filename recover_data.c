@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:17:49 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/11 13:36:41 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:01:55 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strdup(const char *src)
 	return (dest);
 }
 
-void	get_size_map(t_list *head, t_game *game)
+void	linkedlist_map(t_list *head, t_game *game)
 {
 	int		i;
 	t_list	*node;
@@ -59,52 +59,49 @@ void	get_size_map(t_list *head, t_game *game)
 		game->map.map_copy[i++] = ft_strdup(node->data);
 		node = node->next;
 	}
-	// game->map.width = map_len(game->map.map_copy[0]);
-	// check_size_map(head, game->map.width, game);
-	// verify_size_map(head, game);
 	free_linked_list(&head);
 }
 
-void	verify_size_map(t_list *head, t_game *game)
-{
-	unsigned int	k;
+// void	verify_size_map(t_list *head, t_game *game)
+// {
+// 	unsigned int	k;
 
-	k = 0;
-	while (game->map.map_copy[k])
-	{
-		if (game->map.width != map_len(game->map.map_copy[k]))
-		{
-			printf("Size of map not correct\n");
-			// clear_game(game);
-			free_linked_list(&head);
-			exit(1);
-		}
-		k++;
-	}
-}
+// 	k = 0;
+// 	while (game->map.map_copy[k])
+// 	{
+// 		if (game->map.width != map_len(game->map.map_copy[k]))
+// 		{
+// 			printf("Size of map not correct\n");
+// 			// clear_game(game);
+// 			free_linked_list(&head);
+// 			exit(1);
+// 		}
+// 		k++;
+// 	}
+// }
 
-void	check_size_map(t_list *head, int width, t_game *game)
-{
-	int	i;
+// void	check_size_map(t_list *head, int width, t_game *game)
+// {
+// 	int	i;
 
-	i = 0;
-	if (width > 10000)
-	{
-		printf("Map has too long line\n");
-		// clear_game(game);
-		free_linked_list(&head);
-		exit(1);
-	}
-	while (game->map.map_copy[i])
-		i++;
-	if (i > 1000)
-	{
-		printf("Map has too many lines\n");
-		// clear_game(game);
-		free_linked_list(&head);
-		exit(1);
-	}
-}
+// 	i = 0;
+// 	if (width > 10000)
+// 	{
+// 		printf("Map has too long line\n");
+// 		// clear_game(game);
+// 		free_linked_list(&head);
+// 		exit(1);
+// 	}
+// 	while (game->map.map_copy[i])
+// 		i++;
+// 	if (i > 1000)
+// 	{
+// 		printf("Map has too many lines\n");
+// 		// clear_game(game);
+// 		free_linked_list(&head);
+// 		exit(1);
+// 	}
+// }
 
 size_t	map_len(char *str)
 {

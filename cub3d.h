@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:20:14 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/12 09:04:11 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/14 12:16:56 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,12 @@ int	everything_filled(t_game *game);
 // *             SIZE                *
 // ***********************************
 
-void	get_size_map(t_list *head, t_game *game);
+void	linkedlist_map(t_list *head, t_game *game);
 char	*ft_strdup(const char *src);
 void	verify_size_map(t_list *head, t_game *game);
 void	check_size_map(t_list *head, int width, t_game *game);
 size_t	map_len(char *str);
+int	get_size_map(t_game *game);
 
 
 // ***********************************
