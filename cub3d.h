@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:20:14 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/14 12:16:56 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:31:57 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct	t_list
 	t_texture	texture;
 	u_colors	color_fl;
 	u_colors	color_ce;
+	int			player;
 	// void	*winmlx;
 	// void	*ptrmlx;
 }		t_game;
