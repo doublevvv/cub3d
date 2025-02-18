@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 08:02:27 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/17 18:53:00 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:15:44 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,78 +21,6 @@
 	- try to OPEN path_textures to check if you can access it, if path valid
 */
 
-// void	check_x_walls(t_game *game)
-// {
-// 	int	i;
-// 	int	x;
-
-// 	x = game->map.width;
-// 	i = 0;
-// 	while (i < x - 1)
-// 	{
-// 		if (game->map.map_copy[0][i] != '1'
-// 			|| game->map.map_copy[game->map.height - 1][i] != '1')
-// 		{
-// 			ft_printf("Error : Walls missing\n");
-// 			clear_game(game);
-// 			exit(1);
-// 		}
-// 		i++;
-// 	}
-// }
-
-// void	check_y_walls(t_game *game)
-// {
-// 	int	i;
-// 	int	x;
-
-// 	x = game->map.height;
-// 	i = 0;
-// 	while (i < x)
-// 	{
-// 		if (game->map.map_copy[i][0] != '1'
-// 			|| game->map.map_copy[i][game->map.width - 1] != '1')
-// 		{
-// 			ft_printf("Error : Walls missing2\n");
-// 			clear_game(game);
-// 			exit(1);
-// 		}
-// 		i++;
-// 	}
-// } retravailler les deux fonctions pour prendre en compte les espaces car la carte n'est pas strictement rectangle
-
-
-// int	texture_no(t_game *game) //t_texture *pattern, int j = height map
-// {
-// 	int 	i;
-
-// 	i = 0;
-// 	while (game->map.map_copy[0][i] != '\n')
-// 	{
-// 		while (game->map.map_copy[0][i] == ' ' || game->map.map_copy[0][i] == '\t')
-// 			i++;
-// 		if (game->map.map_copy[0][i] != 'N')
-// 		{
-// 			printf("FALSE\n");
-// 			// free_array(game);
-// 			//exit ?
-// 		}
-// 		if (game->map.map_copy[0][i] != 'O')
-// 		{
-// 			printf("INT : %d\n", i);
-// 			printf("FALSE FOR O\n");
-// 			// free_array(game);
-// 			//exit ?
-// 		}
-// 		while (game->map.map_copy[0][i] == '.' )
-// 		{
-// 			printf("INTTTT : %d\n", i);
-// 		}
-// 		i++;
-// 	}
-// 	//ne pas oublier de verifier le path
-// 	return (0);
-// }
 bool	is_space(char c)
 {
 	int	i;
@@ -309,7 +237,6 @@ int	check_map(char *str)
 	int i;
 
 	i = 0;
-	// printf("%s\n", str);
 	while (str[i])
 	{
 		if (str[i] != '1' && str[i] != '0' && str[i] != 'N' && str[i] != 'W' && str[i] != 'E'
@@ -439,11 +366,6 @@ int	nbr_player(char **str, t_game *game)
 		}
 		i++;
 	}
-	// if (game->player == true)
-	// {
-	// 	printf("too many player\n");
-	// 	return (1);
-	// }
 	return (0);
 }
 
@@ -451,7 +373,6 @@ int	nbr_player(char **str, t_game *game)
 # define BG_GREEN "\001\033[42m\002"
 # define BHI_WHITE "\001\033[1;97m\002"
 # define RESET "\001\033[0m\002"
-
 
 
 void	print_color_error(char *color_one, char *color_two, char c)
@@ -486,30 +407,25 @@ void	print_err_map(char **map, int x, int y)
 	}
 }
 
-int check_position(char **map, int y, int x, t_game *game)
+int	check_position(char **map, int y, int x, t_game *game)
 {
-		if(x - 1 < 0 || x + 1 > (int)game->map.width)
-			return (printf("hello\n"), 1);
-		if(y - 1 < 0 || y + 1 > (int)game->map.height)
-			return (1);
-		if ((map[y + 1][x] != '1' || map[y + 1][x] != '0'))
-			return (printf("hello111\n"), 1);
-		else if (map[y - 1][x] != '1' || map[y - 1][x] != '0')
-		{
-			printf("hello\n");
-			return (1);
-		}
-		else if (map[y][x + 1] != '1' || map[y][x + 1] != '0')
-		{
-			printf("hello\n");
-			return (1);
-		}
-		else if (map[y][x - 1] != '1' || map[y][x - 1] != '0')
-		{
-			printf("hello\n");
-			return (1);
-		}
-		return (0);
+	if (x - 1 < 0 || x + 1 > (int)game->map.width)
+		return (1);
+	if (y - 1 < 0 || y + 1 > (int)game->map.height)
+		return (1);
+	if (map[y + 1][x] != '1' && map[y + 1][x] != '0' && map[y + 1][x] != 'N' && map[y + 1][x] != 'S'
+		&& map[y + 1][x] != 'E' && map[y + 1][x] != 'W')
+		return (1);
+	if (map[y - 1][x] != '1' && map[y - 1][x] != '0' && map[y - 1][x] != 'N' && map[y - 1][x] != 'S'
+		&& map[y - 1][x] != 'E' && map[y - 1][x] != 'W')
+		return (1);
+	if (map[y][x + 1] != '1' && map[y][x + 1] != '0' && map[y][x + 1] != 'N' && map[y][x + 1] != 'S'
+		&& map[y][x + 1] != 'E' && map[y][x + 1] != 'W')
+		return (1);
+	if (map[y][x - 1] != '1' && map[y][x - 1] != '0' && map[y][x - 1] != 'N' && map[y][x - 1] != 'S'
+		&& map[y][x - 1] != 'E' && map[y][x - 1] != 'W')
+		return (1);
+	return (0);
 }
 
 int	surrounded_walls(char **map, t_game *game) //ne pas oublier de verifier x < width et y < height
@@ -524,25 +440,22 @@ int	surrounded_walls(char **map, t_game *game) //ne pas oublier de verifier x < 
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'E' || map[y][x] == 'S'
-				|| map[y][x] == 'W')
-					if(check_position(map, y, x, game))
-					{
-						print_err_map(map, x, y);
-						printf("x = %d y = %d", x, y);
-						return (1);
-					}
+			if (map[y][x] == 'N' || map[y][x] == 'E' || map[y][x] == 'S'
+				|| map[y][x] == 'W'|| map[y][x] == '0')
+			{
+				if (check_position(map, y, x, game) != 0)
+				{
+					print_err_map(map, x, y);
+					printf("x = %d y = %d", x, y);
+					return (1);
+				}
+			}
 			x++;
 		}
 		y++;
 	}
 	return (0);
 }
-
-// int	walls_surrounded(char **str, t_game *game)
-// {
-// 	int
-// }
 
 int	verify_map(t_game *game)
 {
@@ -559,5 +472,9 @@ int	verify_map(t_game *game)
 	return (0);
 }
 
+int	one_time(t_game *game)
+{
+	if ()
+}
 
 //parser la carte (demander a alexis)
