@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 07:49:22 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/11 16:34:57 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:21:43 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,16 @@ int	main(int ac, char **av)
 	is_cub(av[1], ".cub");
 	init_map(&game);
 	read_map(av, &game);
-	verify_textures(&game);
-	verify_colors(&game);
-	verify_map(&game);
+	check_differents_identifiers(&game);
+	if (parse(&game))
+		(printf("erreur parsing\n"));
+	free(game.texture.west);
+	free(game.texture.north);
+	free(game.texture.east);
+	free(game.texture.south);
+	free_array(&game);
+	free_array_map(&game);
+	free_array_floor(&game);
+	free_array_ceiling(&game);
+	return (0);
 }

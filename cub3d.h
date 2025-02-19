@@ -6,7 +6,7 @@
 /*   By: vlaggoun <vlaggoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:20:14 by vlaggoun          #+#    #+#             */
-/*   Updated: 2025/02/17 14:31:57 by vlaggoun         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:21:25 by vlaggoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,13 @@
 # include <math.h>
 # include <stdbool.h>
 
+# define B_RED "\001\033[1;31m\002"
+# define BG_GREEN "\001\033[42m\002"
+# define BHI_WHITE "\001\033[1;97m\002"
+# define RESET "\001\033[0m\002"
 
+
+// FREE ARRAY !! DON'T BE DUMB
 typedef union u_colors
 {
 	unsigned char rgb[3];
@@ -59,6 +65,7 @@ typedef struct s_map
 	unsigned int	height;
 	char 			**map_copy;
 	char			**parse_map;
+	int			one_time;
 
 }		t_map;
 
@@ -93,15 +100,31 @@ int		is_cub(char *argv, char *find);
 void	init_map(t_game *game);
 void	read_map(char **argv, t_game *game);
 void	read_map_2(t_game *game, t_list *node, t_list *new);
+int		parse(t_game *game);
+char	*verify_identifiers(char **s1, char *s2, int map);
+bool	is_space(char c);
+int		compare_identifiers(char *s1, char *s2, int map);
+char	*recover_path(char *str);
 int		verify_textures(t_game *game);
+int		open_textures(t_game *game);
+int		check_comma(char *str);
+char 	*recover_colors(char *str);
+char	**verify_rgb(char **s1, char *s2, int map);
+int		overflow(unsigned char **tab);
+void	colors_in_structure(t_game *game, unsigned char **floor, unsigned char **ceiling);
 int		verify_colors(t_game *game);
 int		overflow(unsigned char **tab);
 void	colors_in_structure(t_game *game, unsigned char **floor, unsigned char **ceiling);
-// void	parsing_map(t_game *game);
+int		check_map(char *str);
+int		longest_line(char **str);
+char 	*fill_with_space(char *str, t_game *game);
+int		copy_map(char **str, t_game *game);
+int		verify_map_copy(char **s1, char *s2, int map, t_game *game);
+int		nbr_player(char **str, t_game *game);
+int		check_position(char **map, int y, int x, t_game *game);
+int		surrounded_walls(char **map, t_game *game);
 int		verify_map(t_game *game);
-int	everything_filled(t_game *game);
-// void	check_x_walls(t_game *game);
-// void	check_y_walls(t_game *game);
+int		check_differents_identifiers(t_game *game);
 
 // ***********************************
 // *             SIZE                *
@@ -121,6 +144,7 @@ int	get_size_map(t_game *game);
 
 void	free_linked_list(t_list **lst);
 void	free_array(t_game *game);
+void	free_array_map(t_game *game);
 
 // ***********************************
 // *          LINKED LIST            *
@@ -129,6 +153,8 @@ void	free_array(t_game *game);
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
+void	free_array_floor(t_game *game);
+void	free_array_ceiling(t_game *game);
 
 // ***********************************
 // *             OTHERS              *
